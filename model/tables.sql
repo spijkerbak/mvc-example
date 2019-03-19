@@ -19,6 +19,7 @@ CREATE TABLE `note` (
   `title` varchar(80) DEFAULT NULL,
   `content` text DEFAULT NULL,
   `owner` varchar(120),
+  `createDate` timestamp NOT NULL DEFAULT current_timestamp()
   FOREIGN KEY (`owner`) REFERENCES `user`(`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
