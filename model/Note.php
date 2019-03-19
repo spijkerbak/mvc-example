@@ -33,23 +33,27 @@ class Note implements Record {
         return new ResultSet('Note', $stmt);
     }
 
-    function getId() {
+    function getId() : int {
         return $this->id;
     }
 
-    function getTitle() {
+    function getTitle() : string {
         return $this->title;
     }
 
-    function getContent() {
+    function getContent() : string{
         return $this->content;
     }
 
-    function getCreateDate() {
+    /**
+     * 
+     * @return string: the createDate as a string "yyyy-mm-dd hh:mm"
+     */
+    function getCreateDate() : string {
         return substr($this->createDate, 0, 16);
     }
 
-    function getOwner() {
+    function getOwner() : User {
         return User::get($this->owner);
     }
 

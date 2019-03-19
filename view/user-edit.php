@@ -5,7 +5,7 @@ require_once 'View.php';
 $email = filter_input(INPUT_GET, 'email');
 $user = User::get($email);
 if (empty($user)) {
-    header('location: home');
+    header('location: home.php');
     exit;
 }
 
