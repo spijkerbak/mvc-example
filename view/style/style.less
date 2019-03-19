@@ -1,0 +1,149 @@
+
+@bodywidth: 900px;
+@w1: 1 * @bodywidth / 5;
+@w2: 2 * @bodywidth / 5;
+@w3: 3 * @bodywidth / 5;
+@w4: 4 * @bodywidth / 5;
+@w5: 5 * @bodywidth / 5;
+
+@dark: #A33; 
+@light: #EDD;
+
+@comp: #488;
+@compdark: #155;
+@complight: #9CC;
+
+* {
+    box-sizing: border-box; 
+    font-family: Open Sans, sans-serif;
+}
+body {
+    width: @bodywidth;
+    margin: auto;
+}
+
+header {
+    background-color: @complight;
+    border-color: @dark;
+    border-width: 2px 0 2px 0;
+    h1 {
+        font-family: Roboto Slab, monospace;
+        font-size: 27px;
+        margin: 3px;
+        padding : 3px;
+        color: @dark;
+        /*text-transform: uppercase;*/
+    }
+}
+
+h2 {
+    font-size: 23px;
+    margin: 12px 0 12px 0;
+    padding : 0;
+    color: @comp;
+}
+
+nav {
+    margin-bottom: 10px;
+    color: @comp;
+    a {
+        color: @dark;
+        margin-right: 5px;
+        text-decoration: none;
+    }
+}
+
+label {
+    display: block;
+    color: @dark;
+    margin-bottom: 12px;
+    input, textarea {
+        width: 100%;
+        display: block;
+        color: @compdark;
+    }
+}
+
+.w1 { width: @w1; }
+.w2 { width: @w2; }
+.w3 { width: @w3; }
+.w4 { width: @w4; }
+.w5 { width: @w5; }
+
+table.grid {
+    border-spacing: 4px;
+    th, td {
+        font-size: 17px;
+        border-radius: 6px;
+        padding: 3px 6px 3px 6px;
+        color: white;
+    }
+    thead {
+        th {
+            font-weight: normal;
+            color: @dark;
+            background-color: @complight;
+            text-align: left;
+            &.sort {
+                white-space: nowrap; /* no wrapping before sort character */
+            }
+            &.sort::after {
+                content: " ↕";
+            }
+            &.img img {
+                width: 20px;
+            }
+            a {
+                color: inherit;
+                text-decoration: none;
+            }
+        }
+    }
+    tbody {
+        td {
+            background-color: @compdark;
+            color: white;
+            a {
+                color: inherit;
+                text-decoration: none;
+            }
+        }
+        tr:nth-child(odd) {
+            th, td {
+                background-color: @comp;
+            }
+            td.edit, td.empty  {
+                background-color: white; /* yes */
+            }
+        }
+        td.edit, td.empty  {
+            background-color: white; 
+        }
+    }
+    .name {
+        white-space: nowrap;
+    }
+    .num {
+        text-align: right;
+    }
+    .hidden {
+        display: none;
+    }
+    .filter, .sort, .click {
+        cursor: pointer;
+    }
+    .click {
+        text-align: center;
+    }
+}
+
+button, form a {
+    color: @dark;
+    background-color: @complight;
+    border: 2px solid @dark;
+    border-radius: 4px;
+    font-size: 16px;
+    padding: 4px;
+    text-decoration: none;
+}
+
