@@ -6,12 +6,10 @@
 @w4: 4 * @bodywidth / 5;
 @w5: 5 * @bodywidth / 5;
 
-@dark: #A33; 
-@light: #EDD;
-
-@comp: #488;
-@compdark: #155;
-@complight: #9CC;
+@dark1: #151; 
+@dark2: #393; 
+@medium: #696;
+@light: #AEA;
 
 * {
     box-sizing: border-box; 
@@ -23,15 +21,15 @@ body {
 }
 
 header {
-    background-color: @complight;
-    border-color: @dark;
+    background-color: @light;
+    border-color: @dark1;
     border-width: 2px 0 2px 0;
     h1 {
         font-family: Roboto Slab, monospace;
         font-size: 27px;
         margin: 3px;
         padding : 3px;
-        color: @dark;
+        color: @dark2;
         /*text-transform: uppercase;*/
     }
 }
@@ -40,14 +38,14 @@ h2 {
     font-size: 23px;
     margin: 12px 0 12px 0;
     padding : 0;
-    color: @comp;
+    color: @medium;
 }
 
 nav {
     margin-bottom: 10px;
-    color: @comp;
+    color: @medium;
     a {
-        color: @dark;
+        color: @dark1;
         margin-right: 5px;
         text-decoration: none;
     }
@@ -55,12 +53,12 @@ nav {
 
 label {
     display: block;
-    color: @dark;
+    color: @dark2;
     margin-bottom: 12px;
     input, textarea {
         width: 100%;
         display: block;
-        color: @compdark;
+        color: @dark1;
     }
 }
 
@@ -81,8 +79,8 @@ table.grid {
     thead {
         th {
             font-weight: normal;
-            color: @dark;
-            background-color: @complight;
+            color: @dark1;
+            background-color: @light;
             text-align: left;
             &.sort {
                 white-space: nowrap; /* no wrapping before sort character */
@@ -101,7 +99,7 @@ table.grid {
     }
     tbody {
         td {
-            background-color: @compdark;
+            background-color: @dark1;
             color: white;
             a {
                 color: inherit;
@@ -110,7 +108,7 @@ table.grid {
         }
         tr:nth-child(odd) {
             th, td {
-                background-color: @comp;
+                background-color: @dark2;
             }
             td.edit, td.empty  {
                 background-color: white; /* yes */
@@ -138,9 +136,9 @@ table.grid {
 }
 
 button, form a {
-    color: @dark;
-    background-color: @complight;
-    border: 2px solid @dark;
+    color: @dark1;
+    background-color: @light;
+    border: 2px solid @dark1;
     border-radius: 4px;
     font-size: 16px;
     padding: 4px;
