@@ -11,7 +11,9 @@ class Note implements Record {
     private $owner;
 
     function __construct() {
-        
+        if (!empty($this->owner)) {
+            $this->owner = User::get($this->owner);
+        }
     }
 
     function set(array $array) {
@@ -33,15 +35,15 @@ class Note implements Record {
         return new ResultSet('Note', $stmt);
     }
 
-    function getId() : int {
+    function getId(): int {
         return $this->id;
     }
 
-    function getTitle() : string {
+    function getTitle(): string {
         return $this->title;
     }
 
-    function getContent() : string{
+    function getContent(): string {
         return $this->content;
     }
 
@@ -49,12 +51,12 @@ class Note implements Record {
      * 
      * @return string: the createDate as a string "yyyy-mm-dd hh:mm"
      */
-    function getCreateDate() : string {
+    function getCreateDate(): string {
         return substr($this->createDate, 0, 16);
     }
 
-    function getOwner() : User {
-        return User::get($this->owner);
+    function getOwner(): User {
+        return $this->owner;
     }
 
     static function get(string $id): ?Note {
@@ -64,7 +66,6 @@ class Note implements Record {
         $stmt->execute([$id]);
         $note = $stmt->fetchObject('Note');
         if (!empty($note)) {
-            $note->owner = User::get($note->owner);
             return $note;
         } else {
             return null;

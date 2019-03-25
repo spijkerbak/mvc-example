@@ -2,8 +2,8 @@
 require_once '../general/include.php';
 require_once 'View.php';
 
-$view = new View('Database');
-$view->start();
+$view = new View();
+$view->start('Database');
 ?>
         <h2>Wacht...</h2>
         

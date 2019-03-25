@@ -2,41 +2,28 @@
 
 class View {
 
-    private $title;
-    private $user;
-
-    /**
-     * @param string title: Page title
-     * @param int minLevel: level needed to show this view
-     * exception: view redirected to 'home' on insufficient user level
-     */
-    function __construct($title, $minLevel = User::LEVEL_NONE) {
-        $this->title = $title;
-        $this->user = User::getCurrent();
-        if ($minLevel !== User::LEVEL_NONE) {
-            if ($this->user == null || !$this->user->getLevel() >= $minLevel) {
-                header('location: home.php');
-                exit;
-            }
+    function run() {
+        $action = filter_input(INPUT_GET, 'action');
+        if(!method_exists($this, $action)) {
+            echo "onbekende actie: $action";
+            exit;
         }
+        $this->$action();
     }
 
-    function getUserLevel() : int {
-        return $this->user == null ? User::LEVEL_NONE : $this->user->getLevel();
-    }
-    
     /**
      * Start a view  by generating <html>, <head> en start of <body>
      * containing main menu and page header
+     * @param string title: Page title
      */
-    function start() {
+    function start(string $title) {
         echo "<!doctype html>\n";
         echo "<html lang='nl'>\n";
-        $this->HtmlHead();
+        $this->shoHtmlHead($title);
         echo "<body>\n";
         $this->showMenu();
         $this->showLogo();
-        echo "<h2>{$this->title }</h2>\n";
+        echo "<h2>{$title}</h2>\n";
     }
 
     /**
@@ -47,10 +34,10 @@ class View {
         echo "</html>\n";
     }
 
-    private function HtmlHead() {
+    private function shoHtmlHead($title) {
         ?>
         <head>
-            <title><?= $this->title ?></title>
+            <title><?= $title ?></title>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans" />
@@ -65,17 +52,17 @@ class View {
     private function showMenu() {
         echo "<nav>\n";
         echo "Menu: ";
-        if ($this->user == null) {
-            echo "<a href='login.php'>Login</a>\n";
+        if (getUserLevel() == User::LEVEL_NONE) {
+            echo "<a href='LoginView.php'>Login</a>\n";
         } else {
-            echo "<a href='home.php'>Home</a>\n";
-            echo "<a href='note-list.php'>Notities</a>\n";
-            echo "{$this->user}: ";
-            echo "<a href='../controller/logout-ctrl.php'>Logout</a>\n";
-            if ($this->user->getLevel() == User::LEVEL_ADMIN) {
+            echo "<a href='HomeView.php'>Home</a>\n";
+            echo "<a href='NoteView.php?action=list'>Notities</a>\n";
+            echo User::getCurrent() . ": ";
+            echo "<a href='../controller/LoginController.php?action=logout'>Logout</a>\n";
+            if (getUserLevel() == User::LEVEL_ADMIN) {
                 echo "Admin: ";
-                echo "<a href='user-list.php'>Gebruikers</a>\n";
-                echo "<a href='dbadmin.php'>Database</a>\n";
+                echo "<a href='UserView.php?action=list'>Gebruikers</a>\n";
+                echo "<a href='DBView.php'>Database</a>\n";
             }
         }
         echo "</nav>\n";

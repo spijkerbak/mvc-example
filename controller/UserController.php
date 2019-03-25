@@ -33,5 +33,5 @@ class UserController extends Controller {
 $controller = new UserController();
 $controller->run();
 
-header('location: ../view/user-list.php');
+header('location: ../view/UserView.php?action=list');
 

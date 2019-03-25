@@ -6,13 +6,11 @@ require_once '../model/Note.php';
 
 class NoteController extends Controller {
 
-    public function getMinimumLevel() : int {
-        return User::LEVEL_USER;
-    }
-    
     public function delete() {
         $id = filter_input(INPUT_GET, 'id');
-        $note = User::get($id);
+        $note = Note::get($id);
+        goHomeIfEmpty($note);
+        checkLevelOrUser(User::LEVEL_ADMIN, $note->getOwner());
         $note->delete();
     }
 
@@ -24,15 +22,15 @@ class NoteController extends Controller {
 
     public function update() {
         $id = filter_input(INPUT_POST, 'id');
-        $note = User::get($id);
+        $note = Note::get($id);
         $note->set(filter_input_array(INPUT_POST));
         $note->update();
     }
 
 }
 
-$controller = new UserController();
+$controller = new NoteController();
 $controller->run();
 
-header('location: ../view/user-list.php');
+header('location: ../view/NoteView.php?action=list');
 
