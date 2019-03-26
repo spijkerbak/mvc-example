@@ -45,7 +45,7 @@ class Login {
      */
     static function assertLevel(int $level) {
         if (!self::$user->hasLevel($level)) {
-            goHome(403);
+            header('Location: ../view/ErrorView.php?status=403');
         }
     }
 
@@ -58,7 +58,7 @@ class Login {
      */
     static function assertLevelOrUser(int $level, ?User $user) {
         if(!self::$user->hasLevel($level) && !self::$user->equals($user)) {
-            goHome(403);
+            header('Location: ../view/ErrorView.php?status=403');
         }
     }
 
