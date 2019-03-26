@@ -27,6 +27,6 @@ class LoginController extends Controller {
 $controller = new LoginController();
 $controller->run();
 
-header('location: ../view/NoteHome.php');
+header('location: ../view/HomeView.php');
 
 
