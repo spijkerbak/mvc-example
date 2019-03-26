@@ -6,10 +6,10 @@ require_once '../model/User.php';
 class UserView extends View {
 
     public function edit() {
-        checkUserLevel(User::LEVEL_ADMIN);
+        Login::assertLevel(User::LEVEL_ADMIN);
         $email = filter_input(INPUT_GET, 'email');
         $user = User::get($email);
-        goHomeIfEmpty($user);
+        assertNotEmpty($user);
         $this->start('Gebruiker');
         ?>
         <form action="../controller/UserController.php?action=update" method="post">
@@ -25,7 +25,7 @@ class UserView extends View {
     }
 
     public function new() {
-        checkUserLevel(User::LEVEL_ADMIN);
+        Login::assertLevel(User::LEVEL_ADMIN);
         $this->start('Nieuwe gebruiker');
         ?>
         <form action="../controller/UserController.php?action=insert" method="post">
@@ -39,7 +39,7 @@ class UserView extends View {
     }
 
     public function list() {
-        checkUserLevel(User::LEVEL_ADMIN);
+        Login::assertLevel(User::LEVEL_ADMIN);
         $this->start('Gebruikers');
         ?>
         <table class='grid'>

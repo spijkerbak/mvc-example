@@ -36,49 +36,19 @@ set_error_handler(function($errno, $errstr, $errfile, $errline ) {
 });
 
 /**
- * Check if current user has given level OR is a specific user
- * Go home if not
- * @param type $user
- * 
+ * Check for npon empty parameter
+ * Go home if empty
+ * @param $x
  */
-function checkLevelOrUser(int $level, ?User $user) {
-    if(empty($user)) {
-       goHome();
-    }
-    $current = User::getCurrent();
-    if(empty($current)) {
-       goHome();
-    }
-    if($current->getLevel() < $level && $user->getEmail() !== $current->getEmail()) {
+function assertNotEmpty($x) {
+    if (empty($x)) {
         goHome();
     }
 }
 
-function getUserLevel() {
-    $user = User::getCurrent();
-    if(empty($user)) {
-        return User::LEVEL_NONE;
-    }
-    return $user->getLevel();
-}
-
-function checkUserLevel($level) {
-    if ($level > User::LEVEL_NONE) {
-        $user = User::getCurrent();
-        goHomeIfEmpty($user);
-        if ($user->getLevel() < $level) {
-            goHome();
-        }
-    }
-}
 
 function goHome() {
     header('location: ../view/HomeView.php');
     exit;
 }
 
-function goHomeIfEmpty($x) {
-    if (empty($x)) {
-        goHome();
-    }
-}

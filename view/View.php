@@ -19,7 +19,7 @@ class View {
     function start(string $title) {
         echo "<!doctype html>\n";
         echo "<html lang='nl'>\n";
-        $this->shoHtmlHead($title);
+        $this->showHtmlHead($title);
         echo "<body>\n";
         $this->showMenu();
         $this->showLogo();
@@ -34,7 +34,7 @@ class View {
         echo "</html>\n";
     }
 
-    private function shoHtmlHead($title) {
+    private function showHtmlHead($title) {
         ?>
         <head>
             <title><?= $title ?></title>
@@ -52,14 +52,14 @@ class View {
     private function showMenu() {
         echo "<nav>\n";
         echo "Menu: ";
-        if (getUserLevel() == User::LEVEL_NONE) {
+        if (!Login::hasLevel(User::LEVEL_USER)) {
             echo "<a href='LoginView.php'>Login</a>\n";
         } else {
             echo "<a href='HomeView.php'>Home</a>\n";
             echo "<a href='NoteView.php?action=list'>Notities</a>\n";
-            echo User::getCurrent() . ": ";
+            echo Login::getCurrent() . ": ";
             echo "<a href='../controller/LoginController.php?action=logout'>Logout</a>\n";
-            if (getUserLevel() == User::LEVEL_ADMIN) {
+            if (Login::hasLevel(User::LEVEL_ADMIN)) {
                 echo "Admin: ";
                 echo "<a href='UserView.php?action=list'>Gebruikers</a>\n";
                 echo "<a href='DBView.php'>Database</a>\n";

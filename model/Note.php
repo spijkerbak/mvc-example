@@ -23,14 +23,14 @@ class Note implements Record {
 
     static function getAll(): ResultSet {
         global $db;
-        if (User::getCurrent()->getLevel() == User::LEVEL_ADMIN) {
+        if (Login::hasLevel(User::LEVEL_ADMIN)) {
             $sql = 'SELECT * FROM `note`';
             $stmt = $db->prepare($sql);
             $stmt->execute();
         } else {
             $sql = 'SELECT * FROM `note` WHERE `owner` = ?';
             $stmt = $db->prepare($sql);
-            $stmt->execute([User::getCurrent()->getEmail()]);
+            $stmt->execute([Login::getCurrent()->getEmail()]);
         }
         return new ResultSet('Note', $stmt);
     }
@@ -78,7 +78,7 @@ class Note implements Record {
                 . '(`title`, `content`, `owner`) '
                 . 'VALUES (?, ?, ?)';
         $stmt = $db->prepare($sql);
-        $stmt->execute([$this->title, $this->content, User::getCurrent()->getEmail()]);
+        $stmt->execute([$this->title, $this->content, Login::getCurrent()->getEmail()]);
     }
 
     function update() {
