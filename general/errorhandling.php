@@ -35,20 +35,25 @@ set_error_handler(function($errno, $errstr, $errfile, $errline ) {
     exit();
 });
 
-/**
- * Check for npon empty parameter
- * Go home if empty
- * @param $x
- */
-function assertNotEmpty($x) {
-    if (empty($x)) {
-        goHome();
+function ASSERT_NOT_EMPTY($var) {
+    if (empty($var)) {
+        goHome(404);
     }
 }
 
-
-function goHome() {
-    header('location: ../view/HomeView.php');
-    exit;
+function ASSERT_LEVEL($level) {
+    Login::assertLevel($level);
 }
 
+function ASSERT_LEVEL_OR_USER($level, $user) {
+    Login::assertLevelOrUser($level, $user);
+}
+
+function goHome($status = 100) {
+    if ($status !== 100) {
+        header('Location: ../view/ErrorView.php?status=' . $status);
+    } else {
+        header('Location: ../view/HomeView.php');
+    }
+    exit;
+}

@@ -13,12 +13,16 @@ class User implements Record {
     private $name = '';
     private $salt = '';
     private $passwordHash = '';
-    private $level = User::LEVEL_USER;
+    private $level = User::LEVEL_NONE;
 
     function __construct() {
         $this->orgEmail = $this->email;
     }
 
+    function equals (?User $user) : bool {
+        return !empty($user) && $user->getEmail() === $this->getEmail();
+    }
+    
     function set(array $array) {
         $this->email = $array['email'];
         $this->name = $array['name'];
@@ -42,6 +46,10 @@ class User implements Record {
 
     function getLevel(): int {
         return $this->level;
+    }
+
+    function hasLevel(int $level): bool {
+        return $this->level >= $level;
     }
 
     function setPassword(string $password) {

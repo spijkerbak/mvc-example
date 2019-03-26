@@ -9,8 +9,8 @@ class NoteController extends Controller {
     public function delete() {
         $id = filter_input(INPUT_GET, 'id');
         $note = Note::get($id);
-        assertNotEmpty($note);
-        Login::assertLevelOrUser(User::LEVEL_ADMIN, $note->getOwner());
+        ASSERT_NOT_EMPTY($note);
+        ASSERT_LEVEL_OR_USER(User::LEVEL_ADMIN, $note->getOwner());
         $note->delete();
     }
 

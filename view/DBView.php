@@ -2,7 +2,8 @@
 require_once '../general/include.php';
 require_once 'View.php';
 
-Login::assertLevel(User::LEVEL_ADMIN);
+ASSERT_LEVEL(User::LEVEL_ADMIN);
+
 $view = new View();
 $view->start('Database');
 ?>

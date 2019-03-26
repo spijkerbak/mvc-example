@@ -8,12 +8,12 @@ class NoteView extends View {
 
     public function edit() {
         $id = filter_input(INPUT_GET, 'id');
-        assertNotEmpty($id);
+        ASSERT_NOT_EMPTY($id);
         
         $note = Note::get($id);
-        assertNotEmpty($note);
+        ASSERT_NOT_EMPTY($note);
         
-        Login::assertLevelOrUser(User::LEVEL_ADMIN, $note->getOwner());
+        ASSERT_LEVEL_OR_USER(User::LEVEL_ADMIN, $note->getOwner());
         
         $this->start('Notitie');
         ?>
@@ -29,7 +29,7 @@ class NoteView extends View {
     }
 
     public function new() {
-        Login::assertLevel(User::LEVEL_USER);
+        ASSERT_LEVEL(User::LEVEL_USER);
         $this->start('Nieuwe notitie');
         ?>
         <form action="../controller/NoteController.php?action=insert" method="post">
@@ -42,7 +42,7 @@ class NoteView extends View {
     }
 
     public function list() {
-        Login::assertLevel(User::LEVEL_USER);
+        ASSERT_LEVEL(User::LEVEL_USER);
         $this->start('Notities');
         ?>
         <table class='grid'>

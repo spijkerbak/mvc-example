@@ -17,7 +17,7 @@ class LoginController extends Controller {
     }
 
     public function logout() {
-        //session_start();
+        //session_start(); // already started
         session_destroy();
         header('location: ../view/HomeView.php');
     }
