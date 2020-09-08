@@ -18,11 +18,11 @@ class NoteView extends View {
         $this->start('Notitie');
         ?>
         <form action="../controller/NoteController.php?action=update" method="post">
-            <input type="hidden" name="id" value="<?= $note->getId() ?>">
+            <input type="hidden" name="id" value="<?= $note->ID ?>">
             <label class="w4">Titel  <input type="text" name="title" value="<?= $note->getTitle() ?>"></label>
             <label class="w4">Tekst  <textarea name="content"><?= $note->getContent() ?></textarea></label>
             <button type="submit">Bewaren</button>
-            <a href="../controller/NoteController.php?action=delete&id=<?= $note->getId() ?>">Verwijderen</a>
+            <a href="../controller/NoteController.php?action=delete&id=<?= $note->ID ?>">Verwijderen</a>
         </form>
         <?php
         $this->end();
@@ -62,7 +62,7 @@ class NoteView extends View {
                 $notes = Note::getAll();
                 while ($note = $notes->getNext()) {
                     echo "<tr>";
-                    echo "<td class='click'><a href='NoteView.php?action=edit&id={$note->getId()}'>✎</a></td>";
+                    echo "<td class='click'><a href='NoteView.php?action=edit&id={$note->ID}'>✎</a></td>";
                     echo "<td>{$note->getTitle()}</td>";
                     echo "<td>{$note->getContent()}</td>";
                     if (Login::hasLevel(User::LEVEL_ADMIN)) {

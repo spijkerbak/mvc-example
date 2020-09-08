@@ -5,6 +5,6 @@ require_once 'View.php';
 $view = new View();
 $view->start('Home');
 ?>
-Sources staan op <a href="https://github.com/spijkerbak/mvc-example">Github</a>.
+Sources staan op <a target="github" href="https://github.com/spijkerbak/mvc-example">Github</a>.
 <?php
 $view->end();
