@@ -43,7 +43,8 @@ class View {
             <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans" />
             <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto+Slab"> 
             <link rel="stylesheet/less" type="text/css" href="style/style.less">
-            <script src="//spijkerman.nl/script/tablefilter-105.js"></script>
+            <script src="//spijkerman.nl/script/spikescript/2.10/spikescript.js"></script>
+            <script src="//spijkerman.nl/script/tablefilter/2.11/tablefilter.js"></script>
             <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js" ></script>
         </head>
         <?php

@@ -1,0 +1,138 @@
+* {
+  box-sizing: border-box;
+  font-family: Open Sans, sans-serif;
+}
+body {
+  width: 900px;
+  margin: auto;
+}
+header {
+  background-color: #AEA;
+  border-color: #151;
+  border-width: 2px 0 2px 0;
+}
+header h1 {
+  font-family: Roboto Slab, monospace;
+  font-size: 27px;
+  margin: 3px;
+  padding: 3px;
+  color: #393;
+  /*text-transform: uppercase;*/
+}
+h2 {
+  font-size: 23px;
+  margin: 12px 0 12px 0;
+  padding: 0;
+  color: #696;
+}
+nav {
+  margin-bottom: 10px;
+  color: #696;
+}
+nav a {
+  color: #151;
+  margin-right: 5px;
+  text-decoration: none;
+}
+label {
+  display: block;
+  color: #393;
+  margin-bottom: 12px;
+}
+label input,
+label textarea {
+  width: 100%;
+  display: block;
+  color: #151;
+}
+.w1 {
+  width: 180px;
+}
+.w2 {
+  width: 360px;
+}
+.w3 {
+  width: 540px;
+}
+.w4 {
+  width: 720px;
+}
+.w5 {
+  width: 900px;
+}
+table.grid {
+  border-spacing: 4px;
+}
+table.grid th,
+table.grid td {
+  font-size: 17px;
+  border-radius: 6px;
+  padding: 3px 6px 3px 6px;
+  color: white;
+}
+table.grid thead th {
+  font-weight: normal;
+  color: #151;
+  background-color: #AEA;
+  text-align: left;
+}
+table.grid thead th.sort {
+  white-space: nowrap;
+  /* no wrapping before sort character */
+}
+table.grid thead th.img img {
+  width: 20px;
+}
+table.grid thead th a {
+  color: inherit;
+  text-decoration: none;
+}
+table.grid tbody td {
+  background-color: #151;
+  color: white;
+}
+table.grid tbody td a {
+  color: inherit;
+  text-decoration: none;
+}
+table.grid tbody tr:nth-child(odd) th,
+table.grid tbody tr:nth-child(odd) td {
+  background-color: #393;
+}
+table.grid tbody tr:nth-child(odd) td.edit,
+table.grid tbody tr:nth-child(odd) td.empty {
+  background-color: white;
+  /* yes */
+}
+table.grid tbody td.edit,
+table.grid tbody td.empty {
+  background-color: white;
+}
+table.grid .name {
+  white-space: nowrap;
+}
+table.grid .num {
+  text-align: right;
+}
+table.grid .hidden {
+  display: none;
+}
+table.grid .filter,
+table.grid .sort,
+table.grid .click {
+  cursor: pointer;
+}
+table.grid .click {
+  text-align: center;
+}
+button,
+form a {
+  color: #151;
+  background-color: #AEA;
+  border: 2px solid #151;
+  border-radius: 4px;
+  font-size: 16px;
+  padding: 4px;
+  text-decoration: none;
+}
+/*# sourceMappingURL=style.css.map */
