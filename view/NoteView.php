@@ -3,7 +3,6 @@ require_once '../general/include.php';
 require_once 'View.php';
 require_once '../model/Note.php';
 
-
 class NoteView extends View {
 
     public function edit() {
