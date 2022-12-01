@@ -4,7 +4,7 @@ require_once 'User.php';
 
 class Login {
 
-    private static $user; // user currently logged in OR a dummy user with LEVEL_NONE
+    private static User $user; // user currently logged in OR a dummy user with LEVEL_NONE
 
     function __construct() {}
     
